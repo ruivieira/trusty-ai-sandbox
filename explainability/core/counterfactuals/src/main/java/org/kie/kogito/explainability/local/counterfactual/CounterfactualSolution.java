@@ -16,15 +16,20 @@
 
 package org.kie.kogito.explainability.local.counterfactual;
 
+import org.kie.kogito.explainability.local.counterfactual.constraints.CounterfactualConstraintConfiguration;
 import org.kie.kogito.explainability.local.counterfactual.entities.CounterfactualEntity;
 import org.kie.kogito.explainability.model.Output;
 import org.kie.kogito.explainability.model.PredictionProvider;
+import org.optaplanner.core.api.domain.constraintweight.ConstraintConfigurationProvider;
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
 import org.optaplanner.core.api.domain.solution.PlanningScore;
 import org.optaplanner.core.api.domain.solution.PlanningSolution;
 import org.optaplanner.core.api.score.buildin.bendablebigdecimal.BendableBigDecimalScore;
 
 import java.util.List;
+
+import static org.kie.kogito.explainability.local.counterfactual.CounterfactualConfigurationFactory.HARD_LEVELS_SIZE;
+import static org.kie.kogito.explainability.local.counterfactual.CounterfactualConfigurationFactory.SOFT_LEVELS_SIZE;
 
 /**
  * Represents an OptaPlanner {@link PlanningSolution}.
@@ -43,6 +48,10 @@ public class CounterfactualSolution {
 
     private BendableBigDecimalScore score;
 
+    @ConstraintConfigurationProvider
+    private CounterfactualConstraintConfiguration constraintConfiguration;
+
+
     protected CounterfactualSolution() {
     }
 
@@ -56,7 +65,7 @@ public class CounterfactualSolution {
 
     }
 
-    @PlanningScore(bendableHardLevelsSize = 3, bendableSoftLevelsSize = 1)
+    @PlanningScore(bendableHardLevelsSize = HARD_LEVELS_SIZE, bendableSoftLevelsSize = SOFT_LEVELS_SIZE)
     public BendableBigDecimalScore getScore() {
         return score;
     }

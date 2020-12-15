@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CounterfactualExplainerTest {
 
-    final long predictionTimeOut = 10L;
+    final long predictionTimeOut = 30L;
     final TimeUnit predictionTimeUnit = TimeUnit.MINUTES;
     final Long steps = 200_000L;
 

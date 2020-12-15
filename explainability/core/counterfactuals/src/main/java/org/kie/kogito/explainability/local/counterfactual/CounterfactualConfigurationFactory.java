@@ -1,5 +1,6 @@
 package org.kie.kogito.explainability.local.counterfactual;
 
+import org.kie.kogito.explainability.local.counterfactual.constraints.CounterfactualContraintsProvider;
 import org.kie.kogito.explainability.local.counterfactual.entities.BooleanEntity;
 import org.kie.kogito.explainability.local.counterfactual.entities.CategoricalEntity;
 import org.kie.kogito.explainability.local.counterfactual.entities.DoubleEntity;
@@ -20,6 +21,10 @@ public class CounterfactualConfigurationFactory {
     private static final long DEFAULT_TIME_LIMIT = 30;
     private static final int DEFAULT_TABU_SIZE = 70;
     private static final int DEFAULT_ACCEPTED_COUNT = 5000;
+
+    public static final int HARD_LEVELS_SIZE = 3;
+    public static final int SOFT_LEVELS_SIZE = 1;
+
 
     private CounterfactualConfigurationFactory() {
 
@@ -52,7 +57,8 @@ public class CounterfactualConfigurationFactory {
             solverConfig.setSolutionClass(CounterfactualSolution.class);
 
             ScoreDirectorFactoryConfig scoreDirectorFactoryConfig = new ScoreDirectorFactoryConfig();
-            scoreDirectorFactoryConfig.setEasyScoreCalculatorClass(CounterFactualScoreCalculator.class);
+            scoreDirectorFactoryConfig.setConstraintProviderClass(CounterfactualContraintsProvider.class);
+//            scoreDirectorFactoryConfig.setEasyScoreCalculatorClass(CounterFactualScoreCalculator.class);
             solverConfig.setScoreDirectorFactoryConfig(scoreDirectorFactoryConfig);
 
             solverConfig.setTerminationConfig(terminationConfig);

@@ -125,7 +125,7 @@ public class CounterfactualExplainer implements LocalExplainer<List<Counterfactu
                 solution = solverJob.getFinalBestSolution();
                 return solution.getEntities();
             } catch (InterruptedException | ExecutionException e) {
-                throw new IllegalStateException("Solving failed: {}", e);
+                throw new IllegalStateException("Solving failed: " + e);
             } finally {
                 solverManager.close();
             }
